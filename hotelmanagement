@@ -1,0 +1,143 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class HotelManagementSystem extends JFrame {
+
+    public HotelManagementSystem() {
+
+        setTitle("Hotel Management System");
+        setSize(600, 400);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel(new GridLayout(3, 2, 20, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+
+        JButton btnBooking = new JButton("Room Booking");
+        JButton btnCustomer = new JButton("Customer Details");
+        JButton btnCheckIn = new JButton("Check In");
+        JButton btnCheckOut = new JButton("Check Out");
+        JButton btnBilling = new JButton("Billing");
+        JButton btnExit = new JButton("Exit");
+
+        panel.add(btnBooking);
+        panel.add(btnCustomer);
+        panel.add(btnCheckIn);
+        panel.add(btnCheckOut);
+        panel.add(btnBilling);
+        panel.add(btnExit);
+
+        add(panel);
+
+        // Button Actions
+        btnBooking.addActionListener(e -> new RoomBookingForm().setVisible(true));
+        btnCustomer.addActionListener(e -> new CustomerForm().setVisible(true));
+        btnCheckIn.addActionListener(e -> JOptionPane.showMessageDialog(this, "Check-In Successful"));
+        btnCheckOut.addActionListener(e -> JOptionPane.showMessageDialog(this, "Check-Out Successful"));
+        btnBilling.addActionListener(e -> JOptionPane.showMessageDialog(this, "Billing Generated"));
+        btnExit.addActionListener(e -> System.exit(0));
+    }
+
+    // -------- ROOM BOOKING FORM --------
+    class RoomBookingForm extends JFrame {
+
+        JTextField txtName, txtMobile, txtDays;
+        JComboBox<String> cmbRoom;
+
+        RoomBookingForm() {
+            setTitle("Room Booking");
+            setSize(400, 300);
+            setLocationRelativeTo(null);
+
+            JPanel panel = new JPanel(new GridLayout(5, 2, 10, 10));
+            panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+            panel.add(new JLabel("Customer Name"));
+            txtName = new JTextField();
+            panel.add(txtName);
+
+            panel.add(new JLabel("Mobile Number"));
+            txtMobile = new JTextField();
+            panel.add(txtMobile);
+
+            panel.add(new JLabel("Room Type"));
+            cmbRoom = new JComboBox<>(new String[]{
+                    "Single Room", "Double Room", "Deluxe Room", "Suite"
+            });
+            panel.add(cmbRoom);
+
+            panel.add(new JLabel("No. of Days"));
+            txtDays = new JTextField();
+            panel.add(txtDays);
+
+            JButton btnBook = new JButton("Book");
+            JButton btnClear = new JButton("Clear");
+
+            panel.add(btnBook);
+            panel.add(btnClear);
+
+            add(panel);
+
+            btnBook.addActionListener(e ->
+                    JOptionPane.showMessageDialog(this, "Room Booked Successfully!")
+            );
+
+            btnClear.addActionListener(e -> {
+                txtName.setText("");
+                txtMobile.setText("");
+                txtDays.setText("");
+                cmbRoom.setSelectedIndex(0);
+            });
+        }
+    }
+
+    // -------- CUSTOMER DETAILS FORM --------
+    class CustomerForm extends JFrame {
+
+        JTextField txtName, txtAddress, txtMobile;
+
+        CustomerForm() {
+            setTitle("Customer Details");
+            setSize(400, 250);
+            setLocationRelativeTo(null);
+
+            JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
+            panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+            panel.add(new JLabel("Customer Name"));
+            txtName = new JTextField();
+            panel.add(txtName);
+
+            panel.add(new JLabel("Address"));
+            txtAddress = new JTextField();
+            panel.add(txtAddress);
+
+            panel.add(new JLabel("Mobile Number"));
+            txtMobile = new JTextField();
+            panel.add(txtMobile);
+
+            JButton btnSave = new JButton("Save");
+            JButton btnClear = new JButton("Clear");
+
+            panel.add(btnSave);
+            panel.add(btnClear);
+
+            add(panel);
+
+            btnSave.addActionListener(e ->
+                    JOptionPane.showMessageDialog(this, "Customer Details Saved")
+            );
+
+            btnClear.addActionListener(e -> {
+                txtName.setText("");
+                txtAddress.setText("");
+                txtMobile.setText("");
+            });
+        }
+    }
+
+    // -------- MAIN METHOD --------
+    public static void main(String[] args) {
+        new HotelManagementSystem().setVisible(true);
+    }
+}
